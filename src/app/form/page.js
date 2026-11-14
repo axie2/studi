@@ -1,6 +1,6 @@
 "use client";
 
-import MultiStepForm from "@/components/multistepform/MultiStepForm";
+import MultiStepForm from "@/components/multiStepForm/MultiStepForm";
 import { Box } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";

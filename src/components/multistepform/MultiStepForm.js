@@ -1,15 +1,15 @@
 "use client";
 
-import {Box, Button, Step, StepLabel, Stepper} from "@mui/material";
+import { Box, Button, Step, StepLabel, Stepper } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import Step1 from "@/components/multistepform/formSteps/step1";
-import Step2 from "@/components/multistepform/formSteps/step2";
-import Step3 from "@/components/multistepform/formSteps/step3";
-import Step4 from "@/components/multistepform/formSteps/step4";
-import Step5 from "@/components/multistepform/formSteps/step5";
-import Step6 from "@/components/multistepform/formSteps/step6";
+import Step1 from "@/components/multiStepForm/formSteps/step1";
+import Step2 from "@/components/multiStepForm/formSteps/step2";
+import Step3 from "@/components/multiStepForm/formSteps/step3";
+import Step4 from "@/components/multiStepForm/formSteps/step4";
+import Step5 from "@/components/multiStepForm/formSteps/step5";
+import Step6 from "@/components/multiStepForm/formSteps/step6";
 
 const steps = [
     "Instructions",
@@ -58,7 +58,6 @@ export default function MultiStepForm() {
             body: JSON.stringify(formData),
         });
 
-
         const responseData = await response.json();
 
         formData.id = responseData.id;
@@ -74,7 +73,9 @@ export default function MultiStepForm() {
             alert("Form submitted successfully!");
         } else {
             const errorData = await response.json();
-            alert(`Error submitting form: ${errorData.message || "Unknown error"}`);
+            alert(
+                `Error submitting form: ${errorData.message || "Unknown error"}`,
+            );
         }
     };
 

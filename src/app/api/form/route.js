@@ -31,12 +31,15 @@ export async function POST(req) {
 
 export async function GET(req) {
     try {
+        // connect to MongoDB
         const client = await clientPromise;
         const db = client.db("studi");
 
+        // get userID from params of the request
         const { searchParams } = new URL(req.url);
         const userId = searchParams.get("userId");
 
+        // check for userID
         if (!userId) {
             return new NextResponse(
                 JSON.stringify({
@@ -47,7 +50,7 @@ export async function GET(req) {
             );
         }
 
-        // Find all forms for the user, sorted by course
+        // Find all forms for the user in "forms" collection, sorted by course
         const forms = await db
             .collection("form")
             .find({ userId: userId })

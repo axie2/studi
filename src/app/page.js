@@ -32,9 +32,11 @@ export default function Dashboard() {
         if (status === "unauthenticated") router.push("/login");
     }, [status, router]);
 
+    // FETCH USER
     useEffect(() => {
         if (!session?.user?.email) return;
 
+        // get the user's information from user API and store it in React state
         const fetchUser = async () => {
             try {
                 const res = await fetch(`/api/users/${session.user.email}`);
@@ -54,14 +56,14 @@ export default function Dashboard() {
         fetchUser();
     }, [session]);
 
+    // FETCH FORMS OF USER, userID is passed as a param in GET request
     useEffect(() => {
         if (!userData?._id) return;
 
         const fetchForms = async () => {
             try {
-                // Fetch forms for this user
                 const formsResponse = await fetch(
-                    `/api/form?userId=${userData._id}`
+                    `/api/form?userId=${userData._id}`,
                 );
                 const formsData = await formsResponse.json();
 
@@ -77,7 +79,7 @@ export default function Dashboard() {
         fetchForms();
     }, [userData]);
 
-    // Fetch matches when a form is selected
+    // FETCH MATCHES ASSOCIATED WITH A FORM
     const handleFormClick = async (form) => {
         setSelectedForm(form);
         setCurrentMatches([]);
@@ -115,8 +117,9 @@ export default function Dashboard() {
                     sx={{
                         flex: "0 0 35%",
                         backgroundColor: "#ffffff",
-                        borderRight: `1px solid ${theme.palette.divider || "#ddd"
-                            }`,
+                        borderRight: `1px solid ${
+                            theme.palette.divider || "#ddd"
+                        }`,
                         p: 3,
                         overflowY: "auto",
                     }}
@@ -182,7 +185,7 @@ export default function Dashboard() {
                                                     borderRadius: 2,
                                                     backgroundColor:
                                                         selectedForm?._id ===
-                                                            form._id
+                                                        form._id
                                                             ? "#bbf0d7"
                                                             : "#f9f9f9",
                                                     "&:hover": {
@@ -241,8 +244,8 @@ export default function Dashboard() {
                                 Buddy" preference form.
                             </Typography>
                             <Typography variant="h6">
-                                Then, select a course
-                                and one of your forms to see matches.
+                                Then, select a course and one of your forms to
+                                see matches.
                             </Typography>
                         </Paper>
                     ) : (

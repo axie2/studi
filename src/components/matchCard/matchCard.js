@@ -19,7 +19,7 @@ const formatLabel = (value) => {
         introverted: "Introverted",
         extroverted: "Extroverted",
 
-        highest_priority: "Highest Grades",
+        highest_grades: "Highest Grades",
         just_pass: "Just Pass",
 
         exam: "Exam",
@@ -71,6 +71,7 @@ export default function MatchCard({ match, targetForm }) {
                 height: 400,
             }}
         >
+            {/* Container for the flippable card */}
             <Box
                 onClick={handleClick}
                 sx={{
