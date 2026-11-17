@@ -31,7 +31,9 @@ export default function Home() {
 
         const fetchUser = async () => {
             try {
-                const res = await fetch(`/api/users/${session.user.email}`);
+                const res = await fetch(
+                    `/api/users?email=${encodeURIComponent(session.user.email)}`,
+                );
                 const data = await res.json();
 
                 if (!data._id) {

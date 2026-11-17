@@ -17,7 +17,9 @@ export default function ProfilePage() {
         const fetchUserData = async () => {
             if (session?.user?.email) {
                 try {
-                    const res = await fetch(`/api/users/${session.user.email}`);
+                    const res = await fetch(
+                        `/api/users?email=${encodeURIComponent(session.user.email)}`,
+                    );
                     const data = await res.json();
                     setUserData(data);
 

@@ -43,3 +43,44 @@ export async function POST(request) {
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }
+
+// GET user by email
+export async function GET(req) {
+    try {
+        const { searchParams } = new URL(req.url);
+        const email = searchParams.get("email");
+
+        if (!email) {
+            return NextResponse.json(
+                { error: "Email is required" },
+                { status: 400 }
+            );
+        }
+
+        const client = await clientPromise;
+        const db = client.db("studi");
+
+        const user = await db.collection("user").findOne({ email });
+
+        if (!user) {
+            return NextResponse.json(
+                { error: "User not found" },
+                { status: 404 }
+            );
+        }
+
+        const userData = {
+            ...user,
+            _id: user._id.toString(),
+        };
+
+        return NextResponse.json(userData, { status: 200 });
+
+    } catch (err) {
+        console.error("Error fetching user:", err);
+        return NextResponse.json(
+            { error: "Internal Server Error" },
+            { status: 500 }
+        );
+    }
+}
